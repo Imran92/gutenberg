@@ -10,7 +10,7 @@ import reducer from './reducer';
 import * as selectors from './selectors';
 import * as allActions from './actions';
 import { STORE_NAME } from './constants';
-import { unlock } from '../experiments';
+import { unlock } from '../lock-unlock';
 
 const { __experimentalUpdateSettings, ...actions } = allActions;
 

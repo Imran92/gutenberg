@@ -29,7 +29,7 @@ import BlockList from '../components/block-list';
 import useSetting from '../components/use-setting';
 import InspectorControls from '../components/inspector-controls';
 import { cleanEmptyObject } from './utils';
-import { unlock } from '../experiments';
+import { unlock } from '../lock-unlock';
 import { store as blockEditorStore } from '../store';
 
 const { CustomSelectControl } = unlock( componentsExperiments );
