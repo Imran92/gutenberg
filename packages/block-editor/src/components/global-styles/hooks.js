@@ -221,6 +221,7 @@ const ROOT_BLOCK_SUPPORTS = [
 	'contentSize',
 	'wideSize',
 	'blockGap',
+	'textDecoration',
 ];
 
 function filterElementBlockSupports( blockSuppots, name, element ) {
@@ -230,7 +231,7 @@ function filterElementBlockSupports( blockSuppots, name, element ) {
 		}
 
 		// This is only available for links
-		if ( support === 'textDecoration' ) {
+		if ( support === 'textDecoration' && ! name && element !== 'link' ) {
 			return false;
 		}
 
@@ -239,10 +240,6 @@ function filterElementBlockSupports( blockSuppots, name, element ) {
 
 	if ( ! name && element === 'heading' ) {
 		filteredBlockSupports.push( 'textTransform' );
-	}
-
-	if ( ! name && element === 'link' ) {
-		filteredBlockSupports.push( 'textDecoration' );
 	}
 
 	return filteredBlockSupports;
