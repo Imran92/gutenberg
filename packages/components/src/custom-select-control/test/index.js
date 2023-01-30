@@ -66,7 +66,7 @@ describe( 'CustomSelectControl', () => {
 		).not.toHaveTextContent( 'Hint' );
 	} );
 
-	it( 'shows selected hint when showSelectedHint is set', () => {
+	it( 'shows selected hint when __experimentalShowSelectedHint is set', () => {
 		render(
 			<CustomSelectControl
 				label="Custom select"
@@ -77,7 +77,7 @@ describe( 'CustomSelectControl', () => {
 						__experimentalHint: 'Hint',
 					},
 				] }
-				showSelectedHint
+				__experimentalShowSelectedHint
 				__nextUnconstrainedWidth
 			/>
 		);

@@ -78,7 +78,7 @@ const FontSizePickerSelect = ( props: FontSizePickerSelectProps ) => {
 			) }
 			options={ options }
 			value={ selectedOption }
-			showSelectedHint
+			__experimentalShowSelectedHint
 			onChange={ ( {
 				selectedItem,
 			}: {

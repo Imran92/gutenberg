@@ -295,7 +295,7 @@ export function PositionPanel( props ) {
 							) }
 							options={ options }
 							value={ selectedOption }
-							showSelectedHint
+							__experimentalShowSelectedHint
 							onChange={ ( { selectedItem } ) => {
 								onChangeType( selectedItem.value );
 							} }
