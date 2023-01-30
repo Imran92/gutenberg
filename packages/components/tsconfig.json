@@ -61,7 +61,6 @@
 		"src/notice",
 		"src/palette-edit",
 		"src/panel",
-		"src/query-controls",
 		"src/toolbar",
 		"src/tree-grid"
 	]
