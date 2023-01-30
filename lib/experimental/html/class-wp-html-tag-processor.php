@@ -1278,7 +1278,7 @@ class WP_HTML_Tag_Processor {
 			$this->updated_bytes = $diff->end;
 		}
 
-		foreach ( $this->bookmarks as $bookmark ) {
+		foreach ( $this->bookmarks as $bookmark_name => $bookmark ) {
 			/*
 			 * As we loop through $this->lexical_updates, we keep comparing
 			 * $bookmark->start and $bookmark->end to $diff->start. We can't
@@ -1289,22 +1289,35 @@ class WP_HTML_Tag_Processor {
 			$tail_delta = 0;
 
 			foreach ( $this->lexical_updates as $diff ) {
-				$update_head = $bookmark->start >= $diff->start;
-				$update_tail = $bookmark->end >= $diff->start;
+				$bookmark_start_is_after_diff_start = $bookmark->start >= $diff->start;
+				$bookmark_end_is_after_diff_end     = $bookmark->end >= $diff->start;
 
-				if ( ! $update_head && ! $update_tail ) {
+				if ( $bookmark_start_is_after_diff_start ) {
+					$bookmark_end_is_before_diff_end = $bookmark->end < $diff->end;
+					if ( $bookmark_end_is_before_diff_end ) {
+						// The bookmark is fully contained within the diff. We need to invalidate it.
+						$this->release_bookmark( $bookmark_name );
+					}
+				}
+
+				if ( ! $bookmark_start_is_after_diff_start && ! $bookmark_end_is_after_diff_end ) {
 					break;
 				}
 
 				$delta = strlen( $diff->text ) - ( $diff->end - $diff->start );
 
-				if ( $update_head ) {
+				if ( $bookmark_start_is_after_diff_start ) {
 					$head_delta += $delta;
 				}
 
-				if ( $update_tail ) {
+				if ( $bookmark_end_is_after_diff_end ) {
 					$tail_delta += $delta;
 				}
+			}
+
+			// Did we end up invalidating the bookmark?
+			if ( ! isset( $this->bookmarks[ $bookmark_name ] ) ) {
+				continue;
 			}
 
 			$bookmark->start += $head_delta;
