@@ -314,7 +314,6 @@ function FlexLayoutJustifyContentControl( {
 			label: __( 'Space between items' ),
 		} );
 	} else {
-		// Todo: we also need an icon here.
 		justificationOptions.push( {
 			value: 'stretch',
 			icon: justifyStretch,
@@ -324,6 +323,7 @@ function FlexLayoutJustifyContentControl( {
 
 	return (
 		<ToggleGroupControl
+			__nextHasNoMarginBottom
 			label={ __( 'Justification' ) }
 			value={ justifyContent }
 			onChange={ onJustificationChange }
@@ -360,18 +360,43 @@ function FlexWrapControl( { layout, onChange } ) {
 }
 
 function OrientationControl( { layout, onChange } ) {
-	const { orientation = 'horizontal' } = layout;
+	const {
+		orientation = 'horizontal',
+		verticalAlignment,
+		justifyContent,
+	} = layout;
 	return (
 		<ToggleGroupControl
+			__nextHasNoMarginBottom
 			className="block-editor-hooks__flex-layout-orientation-controls"
 			label={ __( 'Orientation' ) }
 			value={ orientation }
-			onChange={ ( value ) =>
-				onChange( {
+			onChange={ ( value ) => {
+				// Make sure the vertical alignment and justification are compatible with the new orientation.
+				let newVerticalAlignment = verticalAlignment;
+				let newJustification = justifyContent;
+				if ( value === 'horizontal' ) {
+					if ( verticalAlignment === 'space-between' ) {
+						newVerticalAlignment = 'center';
+					}
+					if ( justifyContent === 'stretch' ) {
+						newJustification = 'left';
+					}
+				} else {
+					if ( verticalAlignment === 'stretch' ) {
+						newVerticalAlignment = 'top';
+					}
+					if ( justifyContent === 'space-between' ) {
+						newJustification = 'left';
+					}
+				}
+				return onChange( {
 					...layout,
 					orientation: value,
-				} )
-			}
+					verticalAlignment: newVerticalAlignment,
+					justifyContent: newJustification,
+				} );
+			} }
 		>
 			<ToggleGroupControlOptionIcon
 				icon={ arrowRight }
