@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"declarationDir": "build-types",
-		"checkJs": false
+		"types": [ "gutenberg-env" ]
 	},
 	"include": [ "src/**/*" ]
 }

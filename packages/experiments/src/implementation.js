@@ -25,6 +25,8 @@ const CORE_MODULES_USING_EXPERIMENTS = [
 /**
  * A list of core modules that already opted-in to
  * the experiments package.
+ *
+ * @type {string[]}
  */
 const registeredExperiments = [];
 
@@ -51,7 +53,7 @@ const requiredConsent =
  *
  * @param {string} consent    The consent string.
  * @param {string} moduleName The name of the module that is opting in.
- * @return {{lock: ( object: Object | Function, privateData: any ) => void, unlock: ( object: Object | Function ) => any}} An object containing the lock and unlock functions.
+ * @return {{lock: typeof lock, unlock: typeof unlock}} An object containing the lock and unlock functions.
  */
 export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
 	consent,
@@ -118,8 +120,8 @@ export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
  * // { a: 1 }
  * ```
  *
- * @param {Object|Function} object      The object to bind the private data to.
- * @param {any}             privateData The private data to bind to the object.
+ * @param {any} object      The object to bind the private data to.
+ * @param {any} privateData The private data to bind to the object.
  */
 function lock( object, privateData ) {
 	if ( ! object ) {
