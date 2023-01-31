@@ -122,7 +122,10 @@ const ListViewBlockContents = forwardRef(
 						} }
 					/>
 				) }
-				<BlockDraggable clientIds={ draggableClientIds }>
+				<BlockDraggable
+					clientIds={ draggableClientIds }
+					context="list-view"
+				>
 					{ ( { draggable, onDragStart, onDragEnd } ) => (
 						<ListViewBlockSelectButton
 							ref={ ref }
