@@ -221,10 +221,12 @@ const ROOT_BLOCK_SUPPORTS = [
 	'wideSize',
 	'blockGap',
 	'textDecoration',
+	'textTransform',
+	'letterSpacing',
 ];
 
 function filterElementBlockSupports( blockSuppots, name, element ) {
-	const filteredBlockSupports = blockSuppots.filter( ( support ) => {
+	return blockSuppots.filter( ( support ) => {
 		if ( support === 'fontSize' && element === 'heading' ) {
 			return false;
 		}
@@ -234,14 +236,30 @@ function filterElementBlockSupports( blockSuppots, name, element ) {
 			return false;
 		}
 
+		// This is only available for heading
+		if (
+			support === 'textTransform' &&
+			! name &&
+			! [ 'heading', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ].includes(
+				element
+			)
+		) {
+			return false;
+		}
+
+		// This is only available for headings
+		if (
+			support === 'letterSpacing' &&
+			! name &&
+			! [ 'heading', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ].includes(
+				element
+			)
+		) {
+			return false;
+		}
+
 		return true;
 	} );
-
-	if ( ! name && element === 'heading' ) {
-		filteredBlockSupports.push( 'textTransform' );
-	}
-
-	return filteredBlockSupports;
 }
 
 export function getSupportedGlobalStylesPanels( name, element ) {
