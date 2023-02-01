@@ -2,10 +2,6 @@
 
 ## Unreleased
 
-### Breaking Changes
-
--   Stabilize the `__experimentalPopoverPositionToPlacement` function and rename it to `popoverLegacyPositionToPlacement` ([#47505](https://github.com/WordPress/gutenberg/pull/47505)).
-
 ### Deprecations
 
 -   `NumberControl`: Clarify deprecation message about `hideHTMLArrows` prop ([#47370](https://github.com/WordPress/gutenberg/pull/47370)).
@@ -28,6 +24,7 @@
 -   `Button`: Convert to TypeScript ([#46997](https://github.com/WordPress/gutenberg/pull/46997)).
 -   `QueryControls`: Convert to TypeScript ([#46721](https://github.com/WordPress/gutenberg/pull/46721)).
 -   `Notice`: refactor to TypeScript ([47118](https://github.com/WordPress/gutenberg/pull/47118)).
+-   Lock the `__experimentalPopoverPositionToPlacement` function and rename it to `popoverLegacyPositionToPlacement` ([#47505](https://github.com/WordPress/gutenberg/pull/47505)).
 
 ### Bug Fix
 
